@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio Lounge Cafe | Neon Nights & Premium Shisha</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        studio: {
+                            black: '#050507',
+                            dark: '#0d0d14',
+                        },
+                        neon: {
+                            pink: '#ff2a5f',
+                            blue: '#00f3ff',
+                            purple: '#b026ff',
+                            green: '#39ff14',
+                            yellow: '#eaff00'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050507;
+            color: #EFEFEF;
+            overflow-x: hidden;
+        }
+        
+        /* Neon Text Glows */
+        .glow-text-pink { text-shadow: 0 0 15px rgba(255, 42, 95, 0.7); }
+        .glow-text-blue { text-shadow: 0 0 15px rgba(0, 243, 255, 0.7); }
+        .glow-text-purple { text-shadow: 0 0 15px rgba(176, 38, 255, 0.7); }
+
+        /* Neon Box Shadows & Borders */
+        .neon-box-pink { border: 1px solid #ff2a5f; box-shadow: 0 0 15px rgba(255, 42, 95, 0.2); }
+        .neon-box-pink:hover { box-shadow: 0 0 30px rgba(255, 42, 95, 0.5); transform: translateY(-5px); }
+        
+        .neon-box-blue { border: 1px solid #00f3ff; box-shadow: 0 0 15px rgba(0, 243, 255, 0.2); }
+        .neon-box-blue:hover { box-shadow: 0 0 30px rgba(0, 243, 255, 0.5); transform: translateY(-5px); }
+
+        .neon-box-purple { border: 1px solid #b026ff; box-shadow: 0 0 15px rgba(176, 38, 255, 0.2); }
+        .neon-box-purple:hover { box-shadow: 0 0 30px rgba(176, 38, 255, 0.5); transform: translateY(-5px); }
+
+        /* Glassmorphism */
+        .glass-panel {
+            background: rgba(13, 13, 20, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        /* Parallax Hero Background */
+        .hero-bg {
+            background-image: linear-gradient(to bottom, rgba(5, 5, 7, 0.6), rgba(5, 5, 7, 1)),
+                              url('https://cdn.prod.website-files.com/65496b1500aed8ad52a5a193/67056004ced2273061f7dba5_Hookah%20bar%20table.webp');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* Input Focus Glows */
+        input:focus {
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.4);
+            border-color: #00f3ff !important;
+        }
+
+        /* Menu Item Initial State for GSAP */
+        .menu-item { opacity: 0; transform: translateY(20px); transition: box-shadow 0.3s ease, transform 0.3s ease; }
+    </style>
+</head>
+<body class="antialiased selection:bg-neon-pink selection:text-white">
+
+    <header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-studio-black/80 backdrop-blur-md border-b border-neon-purple/30">
+        <nav class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="text-3xl font-serif font-bold text-white tracking-tight">
+                Studio<span class="text-neon-pink glow-text-pink">.</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-8 text-sm uppercase tracking-widest font-medium">
+                <a href="#vibe" class="hover:text-neon-blue transition-colors duration-300">The Vibe</a>
+                <a href="#menu" class="hover:text-neon-pink transition-colors duration-300">Menu</a>
+                <a href="#booking" class="hover:text-neon-purple transition-colors duration-300">Book</a>
+                <a href="#booking" class="bg-gradient-to-r from-neon-pink to-neon-purple text-white px-6 py-2.5 rounded-full hover:shadow-[0_0_20px_rgba(255,42,95,0.6)] transition-all duration-300 font-bold">
+                    Reserve
+                </a>
+            </div>
+            <button class="md:hidden text-white hover:text-neon-pink">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m7 6H4" /></svg>
+            </button>
+        </nav>
+    </header>
+
+    <section class="h-screen flex items-center justify-center hero-bg relative overflow-hidden">
+        
+        <div class="absolute w-[40rem] h-[40rem] bg-neon-purple/20 rounded-full blur-[120px] top-1/2 left-1/4 transform -translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
+        <div class="absolute w-[30rem] h-[30rem] bg-neon-blue/20 rounded-full blur-[100px] bottom-0 right-0 pointer-events-none"></div>
+
+        <div class="text-center px-6 z-10 gsap-hero-content">
+            <p class="text-neon-blue glow-text-blue uppercase tracking-[0.4em] font-semibold text-sm mb-4">Shisha • Live Music • Vibes</p>
+            <h1 class="font-serif text-7xl md:text-9xl font-bold text-white mb-8 tracking-tighter leading-tight">
+                Studio <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-pink via-neon-purple to-neon-blue glow-text-purple">Lounge</span>
+            </h1>
+            <a href="#booking" class="inline-block bg-studio-dark border-2 border-neon-pink text-white text-lg font-bold uppercase tracking-widest px-12 py-4 rounded-full hover:bg-neon-pink hover:shadow-[0_0_25px_rgba(255,42,95,0.6)] transition-all duration-300 transform hover:scale-105">
+                Join The Night
+            </a>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-8 h-8 text-neon-blue drop-shadow-[0_0_10px_rgba(0,243,255,0.8)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </div>
+    </section>
+
+    <section id="vibe" class="py-24 bg-studio-black gsap-vibe-trigger relative">
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+            <div class="space-y-8 gsap-vibe-text relative z-10">
+                <h2 class="font-serif text-5xl font-bold text-white tracking-tight leading-tight">
+                    Where Shisha Culture Meets <span class="text-neon-blue glow-text-blue">Live Energy</span>.
+                </h2>
+                <p class="text-gray-300 text-lg leading-relaxed font-light">
+                    Step into the neon glow. Studio Lounge Cafe in Al Karama offers an electric blend of premium master-crafted shisha, a vibrant global menu, and a high-energy stage for live beats. The night is yours to own.
+                </p>
+                <div class="flex space-x-4 pt-4">
+                    <div class="glass-panel neon-box-pink p-4 rounded-xl text-center w-40">
+                        <div class="text-4xl text-neon-pink glow-text-pink mb-2 font-bold">100+</div>
+                        <div class="text-xs uppercase tracking-wider text-gray-300">Shisha Mixes</div>
+                    </div>
+                    <div class="glass-panel neon-box-purple p-4 rounded-xl text-center w-40">
+                        <div class="text-4xl text-neon-purple glow-text-purple mb-2 font-bold">Weekly</div>
+                        <div class="text-xs uppercase tracking-wider text-gray-300">Live Shows</div>
+                    </div>
+                </div>
+            </div>
+            <div class="gsap-vibe-img relative">
+                <img src="https://media.istockphoto.com/id/1432018850/photo/shisha-bar-lounge-in-smoke-with-spotlights-in-the-night-dark-blue-colours.jpg?s=612x612&w=0&k=20&c=6mCibE0RkfoPgUlxzUh5b1Udk0KYDQrWjz-FGeRHbDU=" alt="Neon nightlife shisha" class="rounded-3xl shadow-[0_0_40px_rgba(0,243,255,0.2)] relative z-10">
+                <div class="absolute -top-6 -left-6 w-full h-full border-2 border-neon-blue rounded-3xl z-0 pointer-events-none"></div>
+                <div class="absolute -bottom-6 -right-6 w-full h-full border-2 border-neon-pink rounded-3xl z-0 pointer-events-none"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="py-24 bg-studio-dark gsap-menu-trigger relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-neon-purple to-transparent opacity-50"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16 space-y-4">
+                <p class="text-neon-pink glow-text-pink uppercase tracking-[0.3em] font-semibold text-sm">Pick Your Poison</p>
+                <h2 class="font-serif text-5xl md:text-6xl font-bold text-white tracking-tight">The Curated Menu</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-10">
+                
+                <div class="glass-panel p-10 rounded-3xl neon-box-pink space-y-8 flex flex-col justify-between menu-item group">
+                    <div>
+                        <div class="flex items-center justify-between mb-8 pb-4 border-b border-neon-pink/30">
+                            <h3 class="font-serif text-3xl font-bold text-white group-hover:text-neon-pink transition-colors">Shisha</h3>
+                            <svg class="w-10 h-10 text-neon-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
+                        </div>
+                        <ul class="space-y-5 text-gray-300 text-sm md:text-base">
+                            <li class="flex justify-between"><span>Studio House Mix</span><span class="text-neon-pink font-semibold">AED 95</span></li>
+                            <li class="flex justify-between"><span>Premium Standard</span><span class="text-neon-pink font-semibold">AED 120</span></li>
+                            <li class="flex justify-between"><span>Exclusive Darkside</span><span class="text-neon-pink font-semibold">AED 150</span></li>
+                            <li class="flex justify-between"><span>Russian Blends</span><span class="text-neon-pink font-semibold">AED 110</span></li>
+                        </ul>
+                    </div>
+                    <a href="#" class="block text-center border border-neon-pink text-neon-pink py-3 rounded-full hover:bg-neon-pink hover:text-white transition-colors font-bold tracking-widest uppercase text-xs">Full Shisha List</a>
+                </div>
+
+                <div class="glass-panel p-10 rounded-3xl neon-box-blue space-y-8 flex flex-col justify-between menu-item group">
+                    <div>
+                        <div class="flex items-center justify-between mb-8 pb-4 border-b border-neon-blue/30">
+                            <h3 class="font-serif text-3xl font-bold text-white group-hover:text-neon-blue transition-colors">Bites</h3>
+                            <svg class="w-10 h-10 text-neon-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"></path></svg>
+                        </div>
+                        <ul class="space-y-5 text-gray-300 text-sm md:text-base">
+                            <li class="flex justify-between"><span>Truffle Burrata</span><span class="text-neon-blue font-semibold">AED 65</span></li>
+                            <li class="flex justify-between"><span>Wagyu Sliders</span><span class="text-neon-blue font-semibold">AED 85</span></li>
+                            <li class="flex justify-between"><span>Studio Sushi Platter</span><span class="text-neon-blue font-semibold">AED 140</span></li>
+                            <li class="flex justify-between"><span>Dynamite Shrimp</span><span class="text-neon-blue font-semibold">AED 70</span></li>
+                        </ul>
+                    </div>
+                    <a href="#" class="block text-center border border-neon-blue text-neon-blue py-3 rounded-full hover:bg-neon-blue hover:text-studio-black transition-colors font-bold tracking-widest uppercase text-xs">View Food Menu</a>
+                </div>
+
+                <div class="glass-panel p-10 rounded-3xl neon-box-purple space-y-8 flex flex-col justify-between menu-item group">
+                    <div>
+                        <div class="flex items-center justify-between mb-8 pb-4 border-b border-neon-purple/30">
+                            <h3 class="font-serif text-3xl font-bold text-white group-hover:text-neon-purple transition-colors">Mixology</h3>
+                            <svg class="w-10 h-10 text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                        </div>
+                        <ul class="space-y-5 text-gray-300 text-sm md:text-base">
+                            <li class="flex justify-between"><span>Electric Margarita</span><span class="text-neon-purple font-semibold">AED 60</span></li>
+                            <li class="flex justify-between"><span>Neon Mojito</span><span class="text-neon-purple font-semibold">AED 55</span></li>
+                            <li class="flex justify-between"><span>Signature Mocktails</span><span class="text-neon-purple font-semibold">AED 45</span></li>
+                            <li class="flex justify-between"><span>Premium Spirits</span><span class="text-neon-purple font-semibold">VAR</span></li>
+                        </ul>
+                    </div>
+                    <a href="#" class="block text-center border border-neon-purple text-neon-purple py-3 rounded-full hover:bg-neon-purple hover:text-white transition-colors font-bold tracking-widest uppercase text-xs">Full Bar List</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="booking" class="py-24 bg-studio-black relative">
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-16 relative z-10">
+            
+            <div class="space-y-8 gsap-book-form">
+                <h2 class="font-serif text-5xl font-bold text-white tracking-tight">Reserve <br><span class="text-neon-blue glow-text-blue">Your Spot</span></h2>
+                <form class="space-y-6">
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="text" placeholder="Name" class="w-full bg-studio-dark/50 p-4 rounded-xl border border-gray-800 outline-none text-white transition-all">
+                        <input type="tel" placeholder="Phone" class="w-full bg-studio-dark/50 p-4 rounded-xl border border-gray-800 outline-none text-white transition-all">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="date" class="w-full bg-studio-dark/50 p-4 rounded-xl border border-gray-800 outline-none text-white transition-all">
+                        <input type="time" class="w-full bg-studio-dark/50 p-4 rounded-xl border border-gray-800 outline-none text-white transition-all">
+                    </div>
+                    <input type="number" placeholder="Number of Guests" class="w-full bg-studio-dark/50 p-4 rounded-xl border border-gray-800 outline-none text-white transition-all">
+                    
+                    <button class="w-full bg-gradient-to-r from-neon-blue to-neon-purple text-white text-lg font-bold uppercase tracking-widest px-12 py-4 rounded-xl hover:shadow-[0_0_20px_rgba(0,243,255,0.5)] transition-all duration-300">
+                        Confirm Booking
+                    </button>
+                </form>
+            </div>
+            
+            <div class="space-y-8 gsap-book-info flex flex-col justify-center">
+                <h3 class="font-serif text-3xl font-semibold text-white">Location</h3>
+                
+                <div class="bg-studio-dark relative h-64 rounded-2xl border-2 border-neon-pink/50 overflow-hidden flex items-center justify-center group hover:border-neon-pink transition-colors shadow-[0_0_15px_rgba(255,42,95,0.1)]">
+                    <div class="absolute inset-0 bg-neon-pink/5 group-hover:bg-neon-pink/10 transition-colors"></div>
+                    <div class="text-center text-gray-400 relative z-10">
+                        <svg class="w-12 h-12 mx-auto mb-3 text-neon-pink glow-text-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        <p class="font-bold text-white mb-1">Studio Lounge Cafe</p>
+                        <p class="text-sm">Al Karama, Dubai, UAE</p>
+                        <p class="text-xs mt-2 text-neon-pink/70">Map Data Placeholder</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 pt-4 border-t border-gray-800">
+                    <div>
+                        <p class="text-xs uppercase tracking-widest text-gray-500 mb-1">Hours</p>
+                        <p class="text-white font-medium">3:00 PM - 3:00 AM</p>
+                    </div>
+                    <div>
+                        <p class="text-xs uppercase tracking-widest text-gray-500 mb-1">Live DJ & Music</p>
+                        <p class="text-neon-blue font-medium glow-text-blue">Thu - Sat, 9:00 PM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 bg-studio-dark border-t border-neon-purple/20 text-center relative overflow-hidden">
+        <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[30rem] h-[10rem] bg-neon-pink/10 rounded-full blur-[80px] pointer-events-none"></div>
+        
+        <div class="relative z-10">
+            <p class="font-serif text-3xl font-bold text-white mb-2 tracking-tight">Studio<span class="text-neon-pink">.</span></p>
+            <p class="text-xs uppercase tracking-[0.3em] text-gray-500 mb-8">© 2026 Studio Lounge Cafe Dubai. The Night is Yours.</p>
+            
+            <div class="flex justify-center space-x-8 text-sm uppercase tracking-widest font-bold">
+                <a href="#" class="text-gray-400 hover:text-neon-pink transition-colors">Instagram</a>
+                <a href="#" class="text-gray-400 hover:text-neon-blue transition-colors">TikTok</a>
+                <a href="#" class="text-gray-400 hover:text-neon-purple transition-colors">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Header Background Blur on Scroll
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('navbar');
+            if(window.scrollY > 50) {
+                header.classList.add('shadow-[0_4px_30px_rgba(0,0,0,0.5)]');
+                header.classList.replace('py-4', 'py-3');
+            } else {
+                header.classList.remove('shadow-[0_4px_30px_rgba(0,0,0,0.5)]');
+                header.classList.replace('py-3', 'py-4');
+            }
+        });
+
+        // Hero Load Animation
+        gsap.from(".gsap-hero-content", {
+            y: 80,
+            opacity: 0,
+            duration: 1.5,
+            ease: "power3.out",
+            delay: 0.2
+        });
+
+        // Vibe Section Animation
+        const vibeTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".gsap-vibe-trigger",
+                start: "top 75%",
+            }
+        });
+        vibeTl.from(".gsap-vibe-text h2, .gsap-vibe-text p", { y: 40, opacity: 0, stagger: 0.2, duration: 1, ease: "power2.out" })
+              .from(".gsap-vibe-text .flex > div", { y: 20, opacity: 0, stagger: 0.1, duration: 0.6 }, "-=0.6")
+              .from(".gsap-vibe-img", { scale: 0.9, opacity: 0, duration: 1, ease: "power2.out" }, "-=0.8");
+
+        // Menu Stagger Animation
+        gsap.to(".menu-item", {
+            y: 0,
+            opacity: 1,
+            stagger: 0.15,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: ".gsap-menu-trigger",
+                start: "top 65%",
+            }
+        });
+
+        // Booking Section Entrance
+        gsap.from(".gsap-book-form", {
+            x: -50,
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: "#booking",
+                start: "top 75%",
+            }
+        });
+        gsap.from(".gsap-book-info", {
+            x: 50,
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: "#booking",
+                start: "top 75%",
+            }
+        });
+    </script>
+</body>
+</html>
