@@ -195,6 +195,11 @@
             gap: 2.5rem;
         }
 
+        .nav-actions {
+            display: flex;
+            align-items: center;
+        }
+
         .nav-links a:not(.btn) {
             font-size: 0.85rem;
             text-transform: uppercase;
@@ -212,6 +217,44 @@
             cursor: pointer;
             font-size: 1.5rem;
             color: var(--text-dark);
+            border: none;
+            background: transparent;
+            line-height: 1;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 80px;
+            left: 5%;
+            right: 5%;
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(44, 42, 41, 0.1);
+            box-shadow: var(--shadow-soft);
+            padding: 1rem;
+            flex-direction: column;
+            gap: 0.5rem;
+            z-index: 101;
+        }
+
+        .mobile-menu a {
+            padding: 0.9rem 1rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-dark);
+            transition: background-color 0.25s ease;
+        }
+
+        .mobile-menu a:hover {
+            background: rgba(188, 170, 164, 0.12);
+        }
+
+        .mobile-menu .btn {
+            margin-top: 0.5rem;
+            width: 100%;
         }
 
         /* Hero Section */
@@ -569,16 +612,77 @@
         }
 
         @media (max-width: 768px) {
+            .container { padding: 0 1.25rem; }
+            .nav-container { height: 72px; }
+            .logo { font-size: 1.1rem; }
             .nav-links {
                 display: none; /* In a real build, implement a mobile menu */
             }
+            .nav-actions {
+                display: none;
+            }
             .mobile-toggle { display: block; }
+            .mobile-menu.active { display: flex; }
+            .hero {
+                min-height: auto;
+                padding-top: 120px;
+                padding-bottom: 72px;
+            }
             .split-section { grid-template-columns: 1fr; gap: 2rem; }
             .offerings-grid { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 2.5rem; }
+            .hero h1 {
+                font-size: 2rem;
+                line-height: 1.15;
+            }
+            .hero p {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+            .hero-btns {
+                flex-direction: column;
+                width: 100%;
+            }
+            .hero-btns .btn {
+                width: 100%;
+            }
             .testimonial-card { min-width: 300px; padding: 2rem; }
             section { padding: 80px 0; }
-            .editorial-image { height: 400px; }
+            .editorial-image { height: 330px; }
+            .editorial-content h2,
+            #promise h2,
+            #method h2,
+            #experience h2,
+            #results h2,
+            #faq h2,
+            #apply h2 {
+                font-size: 2rem !important;
+            }
+            .method-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .glass-card { padding: 2rem 1.25rem; }
+            .form-container {
+                padding: 1.5rem 1.25rem;
+                margin-top: 2rem;
+            }
+            .footer-links {
+                flex-wrap: wrap;
+                gap: 1rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            section { padding: 68px 0; }
+            .hero h1 { font-size: 1.75rem; }
+            .section-tag { letter-spacing: 1.5px; }
+            .testimonial-card {
+                min-width: 85vw;
+                padding: 1.5rem;
+            }
+            .testimonial-quote { font-size: 1.1rem; }
+            .faq-question {
+                font-size: 1.05rem;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
         }
         
         /* Animation Classes */
@@ -599,10 +703,17 @@
                 <a href="#results">Results</a>
                 <a href="#faq">FAQ</a>
             </div>
-            <div class="nav-links">
+            <div class="nav-actions">
                 <a href="#apply" class="btn btn-primary" style="padding: 10px 24px;">Apply Now</a>
             </div>
-            <div class="mobile-toggle">☰</div>
+            <button class="mobile-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">☰</button>
+            <div class="mobile-menu" id="mobile-menu">
+                <a href="#promise">Method</a>
+                <a href="#experience">Experience</a>
+                <a href="#results">Results</a>
+                <a href="#faq">FAQ</a>
+                <a href="#apply" class="btn btn-primary">Apply Now</a>
+            </div>
         </div>
     </nav>
 
@@ -891,6 +1002,25 @@
 
             // Navbar Glass Effect on Scroll
             const nav = document.querySelector('nav');
+            const mobileToggle = document.querySelector('.mobile-toggle');
+            const mobileMenu = document.querySelector('.mobile-menu');
+
+            if (mobileToggle && mobileMenu) {
+                mobileToggle.addEventListener('click', () => {
+                    const isOpen = mobileMenu.classList.toggle('active');
+                    mobileToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                    mobileToggle.textContent = isOpen ? '✕' : '☰';
+                });
+
+                mobileMenu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.remove('active');
+                        mobileToggle.setAttribute('aria-expanded', 'false');
+                        mobileToggle.textContent = '☰';
+                    });
+                });
+            }
+
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 50) {
                     nav.style.background = 'rgba(255, 255, 255, 0.85)';
