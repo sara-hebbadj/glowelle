@@ -1,354 +1,919 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Studio Lounge Cafe | Neon Nights & Premium Shisha</title>
+    <title>The Glow Method™ | Premium Women's Wellness & Transformation</title>
     
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        serif: ['Playfair Display', 'serif'],
-                        sans: ['Poppins', 'sans-serif'],
-                    },
-                    colors: {
-                        studio: {
-                            black: '#050507',
-                            dark: '#0d0d14',
-                        },
-                        neon: {
-                            pink: '#ff2a5f',
-                            blue: '#00f3ff',
-                            purple: '#b026ff',
-                            green: '#39ff14',
-                            yellow: '#eaff00'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
 
     <style>
+        :root {
+            /* Color Palette */
+            --bg-primary: #FAF9F6; /* Soft Ivory */
+            --bg-secondary: #F4EBE8; /* Blush Nude */
+            --bg-glass: rgba(255, 255, 255, 0.7);
+            --text-dark: #2C2A29; /* Dark Charcoal */
+            --text-body: #5A5653; /* Muted Taupe/Grey */
+            --accent-gold: #D4AF37; /* Champagne Gold */
+            --accent-gold-light: rgba(212, 175, 55, 0.15);
+            --taupe: #BCAAA4;
+            
+            /* Typography */
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Lato', sans-serif;
+            
+            /* UI Elements */
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --shadow-soft: 0 10px 40px rgba(44, 42, 41, 0.04);
+            --shadow-float: 0 20px 50px rgba(44, 42, 41, 0.08);
+            --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            background-color: #050507;
-            color: #EFEFEF;
+            font-family: var(--font-sans);
+            color: var(--text-body);
+            background-color: var(--bg-primary);
+            line-height: 1.6;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, .serif {
+            font-family: var(--font-serif);
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Ambient Orbs */
+        .ambient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            pointer-events: none;
+        }
+        .orb-1 {
+            width: 40vw;
+            height: 40vw;
+            background: radial-gradient(circle, var(--bg-secondary) 0%, transparent 70%);
+            top: -10%;
+            left: -10%;
+        }
+        .orb-2 {
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, var(--accent-gold-light) 0%, transparent 70%);
+            top: 20%;
+            right: -20%;
+        }
+
+        /* Layout & Utilities */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 5%;
+            position: relative;
+            z-index: 1;
         }
         
-        /* Neon Text Glows */
-        .glow-text-pink { text-shadow: 0 0 15px rgba(255, 42, 95, 0.7); }
-        .glow-text-blue { text-shadow: 0 0 15px rgba(0, 243, 255, 0.7); }
-        .glow-text-purple { text-shadow: 0 0 15px rgba(176, 38, 255, 0.7); }
+        section {
+            padding: 120px 0;
+            position: relative;
+        }
 
-        /* Neon Box Shadows & Borders */
-        .neon-box-pink { border: 1px solid #ff2a5f; box-shadow: 0 0 15px rgba(255, 42, 95, 0.2); }
-        .neon-box-pink:hover { box-shadow: 0 0 30px rgba(255, 42, 95, 0.5); transform: translateY(-5px); }
+        .text-center { text-align: center; }
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 2rem; }
+        .mb-4 { margin-bottom: 3rem; }
+        .mb-5 { margin-bottom: 5rem; }
+
+        .section-tag {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.75rem;
+            color: var(--taupe);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: var(--text-dark);
+            color: var(--bg-primary);
+        }
+        .btn-primary:hover {
+            background-color: var(--text-body);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-float);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-dark);
+            border-color: var(--text-dark);
+        }
+        .btn-secondary:hover {
+            background-color: var(--text-dark);
+            color: var(--bg-primary);
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            background: var(--bg-glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-body);
+            transition: color 0.3s ease;
+        }
         
-        .neon-box-blue { border: 1px solid #00f3ff; box-shadow: 0 0 15px rgba(0, 243, 255, 0.2); }
-        .neon-box-blue:hover { box-shadow: 0 0 30px rgba(0, 243, 255, 0.5); transform: translateY(-5px); }
+        .nav-links a:hover {
+            color: var(--text-dark);
+        }
 
-        .neon-box-purple { border: 1px solid #b026ff; box-shadow: 0 0 15px rgba(176, 38, 255, 0.2); }
-        .neon-box-purple:hover { box-shadow: 0 0 30px rgba(176, 38, 255, 0.5); transform: translateY(-5px); }
+        .mobile-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+        }
 
-        /* Glassmorphism */
-        .glass-panel {
-            background: rgba(13, 13, 20, 0.6);
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 5vw, 5rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .hero h1 i {
+            font-style: italic;
+            color: var(--taupe);
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.25rem);
+            color: var(--text-body);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        /* Floating Trust Cards */
+        .floating-cards {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .float-card {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            padding: 12px 24px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: var(--shadow-soft);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        /* Parallax Hero Background */
-        .hero-bg {
-            background-image: linear-gradient(to bottom, rgba(5, 5, 7, 0.6), rgba(5, 5, 7, 1)),
-                              url('https://cdn.prod.website-files.com/65496b1500aed8ad52a5a193/67056004ced2273061f7dba5_Hookah%20bar%20table.webp');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+        .fc-1 { top: 25%; left: 10%; }
+        .fc-2 { top: 60%; right: 15%; }
+        .fc-3 { bottom: 20%; left: 20%; }
+        .fc-4 { top: 30%; right: 10%; }
+
+        /* Generic Card Styling */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: var(--radius-lg);
+            padding: 3rem 2rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-float);
+            background: rgba(255, 255, 255, 0.9);
         }
 
-        /* Input Focus Glows */
-        input:focus {
-            box-shadow: 0 0 10px rgba(0, 243, 255, 0.4);
-            border-color: #00f3ff !important;
+        /* Brand Promise / Pillars Grid */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
         }
 
-        /* Menu Item Initial State for GSAP */
-        .menu-item { opacity: 0; transform: translateY(20px); transition: box-shadow 0.3s ease, transform 0.3s ease; }
+        .pillar-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Split Editorial Section */
+        .split-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .editorial-image {
+            width: 100%;
+            height: 600px;
+            border-radius: var(--radius-lg);
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, #E6D5D1 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Abstract shape inside editorial placeholder */
+        .editorial-image::after {
+            content: '';
+            width: 300px;
+            height: 400px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            filter: blur(20px);
+            position: absolute;
+        }
+
+        .editorial-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .editorial-content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Method Timeline */
+        .method-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .method-step {
+            position: relative;
+        }
+
+        .step-number {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            color: var(--accent-gold);
+            opacity: 0.3;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .method-step h4 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Experience/Offerings */
+        .offerings-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        /* Testimonials */
+        .testimonial-slider {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            padding-bottom: 2rem;
+            scrollbar-width: none;
+        }
+        .testimonial-slider::-webkit-scrollbar { display: none; }
+        
+        .testimonial-card {
+            min-width: 400px;
+            padding: 3rem;
+        }
+
+        .testimonial-quote {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            font-style: italic;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--taupe);
+        }
+
+        /* FAQ Section */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid rgba(44, 42, 41, 0.1);
+            padding: 1.5rem 0;
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            color: var(--text-dark);
+        }
+
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            color: var(--text-body);
+            margin-top: 0;
+        }
+
+        .faq-item.active .faq-answer {
+            margin-top: 1rem;
+            max-height: 200px;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        /* Apply / CTA Section */
+        .cta-section {
+            background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            text-align: center;
+            padding: 150px 0;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 3rem auto 0;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 3rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-float);
+            backdrop-filter: blur(20px);
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 0;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(44, 42, 41, 0.2);
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            color: var(--text-dark);
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-bottom-color: var(--accent-gold);
+        }
+
+        .form-submit {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-dark);
+            color: var(--bg-primary);
+            padding: 4rem 0 2rem;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--bg-primary);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-links a {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(250, 249, 246, 0.7);
+        }
+
+        .footer-links a:hover {
+            color: var(--bg-primary);
+        }
+
+        .copyright {
+            font-size: 0.8rem;
+            color: rgba(250, 249, 246, 0.4);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .method-grid { grid-template-columns: repeat(2, 1fr); }
+            .fc-1, .fc-2, .fc-3, .fc-4 { display: none; } /* Hide floating cards on smaller screens */
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* In a real build, implement a mobile menu */
+            }
+            .mobile-toggle { display: block; }
+            .split-section { grid-template-columns: 1fr; gap: 2rem; }
+            .offerings-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.5rem; }
+            .testimonial-card { min-width: 300px; padding: 2rem; }
+            section { padding: 80px 0; }
+            .editorial-image { height: 400px; }
+        }
+        
+        /* Animation Classes */
+        .gsap-reveal { opacity: 0; visibility: hidden; }
     </style>
 </head>
-<body class="antialiased selection:bg-neon-pink selection:text-white">
+<body>
 
-    <header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-studio-black/80 backdrop-blur-md border-b border-neon-purple/30">
-        <nav class="container mx-auto px-6 py-4 flex items-center justify-between">
-            <div class="text-3xl font-serif font-bold text-white tracking-tight">
-                Studio<span class="text-neon-pink glow-text-pink">.</span>
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+
+    <nav>
+        <div class="container nav-container">
+            <a href="#" class="logo">The Glow Method™</a>
+            <div class="nav-links">
+                <a href="#promise">Method</a>
+                <a href="#experience">Experience</a>
+                <a href="#results">Results</a>
+                <a href="#faq">FAQ</a>
             </div>
-            <div class="hidden md:flex items-center space-x-8 text-sm uppercase tracking-widest font-medium">
-                <a href="#vibe" class="hover:text-neon-blue transition-colors duration-300">The Vibe</a>
-                <a href="#menu" class="hover:text-neon-pink transition-colors duration-300">Menu</a>
-                <a href="#booking" class="hover:text-neon-purple transition-colors duration-300">Book</a>
-                <a href="#booking" class="bg-gradient-to-r from-neon-pink to-neon-purple text-white px-6 py-2.5 rounded-full hover:shadow-[0_0_20px_rgba(255,42,95,0.6)] transition-all duration-300 font-bold">
-                    Reserve
-                </a>
+            <div class="nav-links">
+                <a href="#apply" class="btn btn-primary" style="padding: 10px 24px;">Apply Now</a>
             </div>
-            <button class="md:hidden text-white hover:text-neon-pink">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m7 6H4" /></svg>
-            </button>
-        </nav>
-    </header>
-
-    <section class="h-screen flex items-center justify-center hero-bg relative overflow-hidden">
-        
-        <div class="absolute w-[40rem] h-[40rem] bg-neon-purple/20 rounded-full blur-[120px] top-1/2 left-1/4 transform -translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
-        <div class="absolute w-[30rem] h-[30rem] bg-neon-blue/20 rounded-full blur-[100px] bottom-0 right-0 pointer-events-none"></div>
-
-        <div class="text-center px-6 z-10 gsap-hero-content">
-            <p class="text-neon-blue glow-text-blue uppercase tracking-[0.4em] font-semibold text-sm mb-4">Shisha • Live Music • Vibes</p>
-            <h1 class="font-serif text-7xl md:text-9xl font-bold text-white mb-8 tracking-tighter leading-tight">
-                Studio <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-pink via-neon-purple to-neon-blue glow-text-purple">Lounge</span>
-            </h1>
-            <a href="#booking" class="inline-block bg-studio-dark border-2 border-neon-pink text-white text-lg font-bold uppercase tracking-widest px-12 py-4 rounded-full hover:bg-neon-pink hover:shadow-[0_0_25px_rgba(255,42,95,0.6)] transition-all duration-300 transform hover:scale-105">
-                Join The Night
-            </a>
+            <div class="mobile-toggle">☰</div>
         </div>
-        
-        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <svg class="w-8 h-8 text-neon-blue drop-shadow-[0_0_10px_rgba(0,243,255,0.8)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-        </div>
-    </section>
+    </nav>
 
-    <section id="vibe" class="py-24 bg-studio-black gsap-vibe-trigger relative">
-        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-            <div class="space-y-8 gsap-vibe-text relative z-10">
-                <h2 class="font-serif text-5xl font-bold text-white tracking-tight leading-tight">
-                    Where Shisha Culture Meets <span class="text-neon-blue glow-text-blue">Live Energy</span>.
-                </h2>
-                <p class="text-gray-300 text-lg leading-relaxed font-light">
-                    Step into the neon glow. Studio Lounge Cafe in Al Karama offers an electric blend of premium master-crafted shisha, a vibrant global menu, and a high-energy stage for live beats. The night is yours to own.
-                </p>
-                <div class="flex space-x-4 pt-4">
-                    <div class="glass-panel neon-box-pink p-4 rounded-xl text-center w-40">
-                        <div class="text-4xl text-neon-pink glow-text-pink mb-2 font-bold">100+</div>
-                        <div class="text-xs uppercase tracking-wider text-gray-300">Shisha Mixes</div>
-                    </div>
-                    <div class="glass-panel neon-box-purple p-4 rounded-xl text-center w-40">
-                        <div class="text-4xl text-neon-purple glow-text-purple mb-2 font-bold">Weekly</div>
-                        <div class="text-xs uppercase tracking-wider text-gray-300">Live Shows</div>
-                    </div>
-                </div>
-            </div>
-            <div class="gsap-vibe-img relative">
-                <img src="https://media.istockphoto.com/id/1432018850/photo/shisha-bar-lounge-in-smoke-with-spotlights-in-the-night-dark-blue-colours.jpg?s=612x612&w=0&k=20&c=6mCibE0RkfoPgUlxzUh5b1Udk0KYDQrWjz-FGeRHbDU=" alt="Neon nightlife shisha" class="rounded-3xl shadow-[0_0_40px_rgba(0,243,255,0.2)] relative z-10">
-                <div class="absolute -top-6 -left-6 w-full h-full border-2 border-neon-blue rounded-3xl z-0 pointer-events-none"></div>
-                <div class="absolute -bottom-6 -right-6 w-full h-full border-2 border-neon-pink rounded-3xl z-0 pointer-events-none"></div>
+    <section class="hero" id="hero">
+        <div class="floating-cards">
+            <div class="float-card fc-1 gsap-float">✦ Science-led</div>
+            <div class="float-card fc-2 gsap-float">Dubai-based ✦</div>
+            <div class="float-card fc-3 gsap-float">Hormones & Longevity</div>
+            <div class="float-card fc-4 gsap-float">Women-focused</div>
+        </div>
+        <div class="container hero-content">
+            <span class="section-tag hero-elem">Elevate Your Biology</span>
+            <h1 class="hero-elem">Master your metabolism, <br><i>reclaim</i> your vitality.</h1>
+            <p class="hero-elem">A premium, science-based transformation system for ambitious women in Dubai. We architect sustainable changes across training, hormones, and longevity.</p>
+            <div class="hero-btns hero-elem">
+                <a href="#apply" class="btn btn-primary">Apply for Coaching</a>
+                <a href="#promise" class="btn btn-secondary">Discover the Method</a>
             </div>
         </div>
     </section>
 
-    <section id="menu" class="py-24 bg-studio-dark gsap-menu-trigger relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-neon-purple to-transparent opacity-50"></div>
-
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="text-center mb-16 space-y-4">
-                <p class="text-neon-pink glow-text-pink uppercase tracking-[0.3em] font-semibold text-sm">Pick Your Poison</p>
-                <h2 class="font-serif text-5xl md:text-6xl font-bold text-white tracking-tight">The Curated Menu</h2>
+    <section id="promise">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="section-tag gsap-reveal">The Philosophy</span>
+                <h2 class="gsap-reveal" style="font-size: 2.5rem;">Intelligent, Feminine Optimization.</h2>
             </div>
             
-            <div class="grid md:grid-cols-3 gap-10">
-                
-                <div class="glass-panel p-10 rounded-3xl neon-box-pink space-y-8 flex flex-col justify-between menu-item group">
-                    <div>
-                        <div class="flex items-center justify-between mb-8 pb-4 border-b border-neon-pink/30">
-                            <h3 class="font-serif text-3xl font-bold text-white group-hover:text-neon-pink transition-colors">Shisha</h3>
-                            <svg class="w-10 h-10 text-neon-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
-                        </div>
-                        <ul class="space-y-5 text-gray-300 text-sm md:text-base">
-                            <li class="flex justify-between"><span>Studio House Mix</span><span class="text-neon-pink font-semibold">AED 95</span></li>
-                            <li class="flex justify-between"><span>Premium Standard</span><span class="text-neon-pink font-semibold">AED 120</span></li>
-                            <li class="flex justify-between"><span>Exclusive Darkside</span><span class="text-neon-pink font-semibold">AED 150</span></li>
-                            <li class="flex justify-between"><span>Russian Blends</span><span class="text-neon-pink font-semibold">AED 110</span></li>
-                        </ul>
-                    </div>
-                    <a href="#" class="block text-center border border-neon-pink text-neon-pink py-3 rounded-full hover:bg-neon-pink hover:text-white transition-colors font-bold tracking-widest uppercase text-xs">Full Shisha List</a>
+            <div class="pillars-grid">
+                <div class="glass-card pillar-card gsap-reveal">
+                    <h3>Metabolic Training</h3>
+                    <p>Strategic, science-backed movement designed to build lean tissue, regulate cortisol, and create a resilient physique without burnout.</p>
                 </div>
-
-                <div class="glass-panel p-10 rounded-3xl neon-box-blue space-y-8 flex flex-col justify-between menu-item group">
-                    <div>
-                        <div class="flex items-center justify-between mb-8 pb-4 border-b border-neon-blue/30">
-                            <h3 class="font-serif text-3xl font-bold text-white group-hover:text-neon-blue transition-colors">Bites</h3>
-                            <svg class="w-10 h-10 text-neon-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"></path></svg>
-                        </div>
-                        <ul class="space-y-5 text-gray-300 text-sm md:text-base">
-                            <li class="flex justify-between"><span>Truffle Burrata</span><span class="text-neon-blue font-semibold">AED 65</span></li>
-                            <li class="flex justify-between"><span>Wagyu Sliders</span><span class="text-neon-blue font-semibold">AED 85</span></li>
-                            <li class="flex justify-between"><span>Studio Sushi Platter</span><span class="text-neon-blue font-semibold">AED 140</span></li>
-                            <li class="flex justify-between"><span>Dynamite Shrimp</span><span class="text-neon-blue font-semibold">AED 70</span></li>
-                        </ul>
-                    </div>
-                    <a href="#" class="block text-center border border-neon-blue text-neon-blue py-3 rounded-full hover:bg-neon-blue hover:text-studio-black transition-colors font-bold tracking-widest uppercase text-xs">View Food Menu</a>
+                <div class="glass-card pillar-card gsap-reveal">
+                    <h3>Hormone Harmony</h3>
+                    <p>Understanding the female physiology. We align nutrition and lifestyle protocols to support hormonal fluctuations, not fight them.</p>
                 </div>
-
-                <div class="glass-panel p-10 rounded-3xl neon-box-purple space-y-8 flex flex-col justify-between menu-item group">
-                    <div>
-                        <div class="flex items-center justify-between mb-8 pb-4 border-b border-neon-purple/30">
-                            <h3 class="font-serif text-3xl font-bold text-white group-hover:text-neon-purple transition-colors">Mixology</h3>
-                            <svg class="w-10 h-10 text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
-                        </div>
-                        <ul class="space-y-5 text-gray-300 text-sm md:text-base">
-                            <li class="flex justify-between"><span>Electric Margarita</span><span class="text-neon-purple font-semibold">AED 60</span></li>
-                            <li class="flex justify-between"><span>Neon Mojito</span><span class="text-neon-purple font-semibold">AED 55</span></li>
-                            <li class="flex justify-between"><span>Signature Mocktails</span><span class="text-neon-purple font-semibold">AED 45</span></li>
-                            <li class="flex justify-between"><span>Premium Spirits</span><span class="text-neon-purple font-semibold">VAR</span></li>
-                        </ul>
-                    </div>
-                    <a href="#" class="block text-center border border-neon-purple text-neon-purple py-3 rounded-full hover:bg-neon-purple hover:text-white transition-colors font-bold tracking-widest uppercase text-xs">Full Bar List</a>
+                <div class="glass-card pillar-card gsap-reveal">
+                    <h3>Cellular Longevity</h3>
+                    <p>Beyond aesthetics. We focus on mitochondrial health, metabolic flexibility, and anti-aging principles for lifelong vitality.</p>
                 </div>
-
+                <div class="glass-card pillar-card gsap-reveal">
+                    <h3>Sustainable Integration</h3>
+                    <p>A high-performance life requires scalable habits. We build systems that fit seamlessly into the lives of busy, ambitious women.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="booking" class="py-24 bg-studio-black relative">
-        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-16 relative z-10">
+    <section id="why">
+        <div class="container split-section">
+            <div class="editorial-image gsap-reveal">
+                <img src="glow.png">
+                </div>
+            <div class="editorial-content gsap-reveal">
+                <span class="section-tag">The Difference</span>
+                <h2>For women who have outgrown surface-level wellness.</h2>
+                <p>You are tired of restrictive diets, exhaustive cardio, and generic advice that ignores your unique biology. You need a method that is as sophisticated as the rest of your life.</p>
+                <p>The Glow Method™ is an intimate, intelligent approach to physical transformation. We bridge the gap between clinical science and premium lifestyle, allowing you to build strength, find hormonal balance, and radiate from within.</p>
+                <a href="#apply" class="btn btn-secondary mt-4" style="margin-top: 1.5rem;">Begin Your Journey</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="method" style="background-color: var(--bg-secondary);">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="section-tag gsap-reveal">The Framework</span>
+                <h2 class="gsap-reveal" style="font-size: 2.5rem;">A Phased Transformation.</h2>
+            </div>
+
+            <div class="method-grid">
+                <div class="method-step gsap-reveal">
+                    <div class="step-number">01</div>
+                    <h4>Assess</h4>
+                    <p>Comprehensive evaluation of your lifestyle, training history, biofeedback, and hormonal markers to establish a profound baseline.</p>
+                </div>
+                <div class="method-step gsap-reveal">
+                    <div class="step-number">02</div>
+                    <h4>Align</h4>
+                    <p>Architecting a bespoke protocol. Harmonizing your nutrition and training with your daily demands and biological rhythm.</p>
+                </div>
+                <div class="method-step gsap-reveal">
+                    <div class="step-number">03</div>
+                    <h4>Transform</h4>
+                    <p>The implementation phase. Guided execution with high-touch support, adjusting variables in real-time as your body responds.</p>
+                </div>
+                <div class="method-step gsap-reveal">
+                    <div class="step-number">04</div>
+                    <h4>Sustain</h4>
+                    <p>Transitioning from active transformation to effortless maintenance. Cementing longevity protocols for lifelong radiance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="section-tag gsap-reveal">The Experience</span>
+                <h2 class="gsap-reveal" style="font-size: 2.5rem;">Curated Transformations.</h2>
+            </div>
             
-            <div class="space-y-8 gsap-book-form">
-                <h2 class="font-serif text-5xl font-bold text-white tracking-tight">Reserve <br><span class="text-neon-blue glow-text-blue">Your Spot</span></h2>
-                <form class="space-y-6">
-                    <div class="grid grid-cols-2 gap-4">
-                        <input type="text" placeholder="Name" class="w-full bg-studio-dark/50 p-4 rounded-xl border border-gray-800 outline-none text-white transition-all">
-                        <input type="tel" placeholder="Phone" class="w-full bg-studio-dark/50 p-4 rounded-xl border border-gray-800 outline-none text-white transition-all">
+            <div class="offerings-grid">
+                <div class="glass-card gsap-reveal">
+                    <h3>1:1 Signature Mentorship</h3>
+                    <p class="mb-2">Our most exclusive container. Highly personalized lifestyle, training, and nutrition architecture with direct access, weekly deep-dives, and complete physiological mapping.</p>
+                    <ul style="color: var(--text-dark); font-size: 0.9rem;">
+                        <li class="mb-1">✦ Bespoke training programming</li>
+                        <li class="mb-1">✦ Advanced biofeedback tracking</li>
+                        <li class="mb-1">✦ VIP access & priority support</li>
+                    </ul>
+                </div>
+                <div class="glass-card gsap-reveal">
+                    <h3>The Glow Collective (Dubai)</h3>
+                    <p class="mb-2">An intimate, hybrid experience for women in the UAE. Combining digital optimization protocols with exclusive in-person training events, workshops, and wellness immersions.</p>
+                    <ul style="color: var(--text-dark); font-size: 0.9rem;">
+                        <li class="mb-1">✦ Science-based group programming</li>
+                        <li class="mb-1">✦ Monthly in-person Dubai events</li>
+                        <li class="mb-1">✦ High-value community access</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="results" style="overflow: hidden;">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="section-tag gsap-reveal">Client Outcomes</span>
+                <h2 class="gsap-reveal" style="font-size: 2.5rem;">Realized Potential.</h2>
+            </div>
+
+            <div class="testimonial-slider gsap-reveal">
+                <div class="glass-card testimonial-card">
+                    <p class="testimonial-quote">"For the first time in my life, I'm not fighting my body. I have boundless energy for my career, my physique has transformed, and the brain fog is entirely gone. This is elevated wellness."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"></div>
+                        <div>
+                            <h4 style="font-family: var(--font-sans); font-size: 1rem;">Sarah M.</h4>
+                            <span style="font-size: 0.8rem; color: var(--taupe);">Executive, Dubai</span>
+                        </div>
                     </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <input type="date" class="w-full bg-studio-dark/50 p-4 rounded-xl border border-gray-800 outline-none text-white transition-all">
-                        <input type="time" class="w-full bg-studio-dark/50 p-4 rounded-xl border border-gray-800 outline-none text-white transition-all">
+                </div>
+                <div class="glass-card testimonial-card">
+                    <p class="testimonial-quote">"The approach to hormones and training is revolutionary. I stopped overtraining and under-eating. Now, I lift heavy, eat abundantly, and look leaner and more feminine than ever before."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"></div>
+                        <div>
+                            <h4 style="font-family: var(--font-sans); font-size: 1rem;">Elena K.</h4>
+                            <span style="font-size: 0.8rem; color: var(--taupe);">Founder, UAE</span>
+                        </div>
                     </div>
-                    <input type="number" placeholder="Number of Guests" class="w-full bg-studio-dark/50 p-4 rounded-xl border border-gray-800 outline-none text-white transition-all">
-                    
-                    <button class="w-full bg-gradient-to-r from-neon-blue to-neon-purple text-white text-lg font-bold uppercase tracking-widest px-12 py-4 rounded-xl hover:shadow-[0_0_20px_rgba(0,243,255,0.5)] transition-all duration-300">
-                        Confirm Booking
-                    </button>
+                </div>
+                <div class="glass-card testimonial-card">
+                    <p class="testimonial-quote">"It's not just a fitness program; it's an education in female physiology. The sophistication of the coaching made me feel safe, understood, and ultimately, profoundly empowered."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"></div>
+                        <div>
+                            <h4 style="font-family: var(--font-sans); font-size: 1rem;">Aisha R.</h4>
+                            <span style="font-size: 0.8rem; color: var(--taupe);">Director, Dubai</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" style="background-color: var(--bg-secondary);">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="section-tag gsap-reveal">Inquiries</span>
+                <h2 class="gsap-reveal" style="font-size: 2.5rem;">Frequently Asked Questions.</h2>
+            </div>
+
+            <div class="faq-container gsap-reveal">
+                <div class="faq-item">
+                    <div class="faq-question">Who is The Glow Method™ for? <span class="faq-icon">+</span></div>
+                    <div class="faq-answer">It is designed for ambitious, high-achieving women who want to optimize their physical wellbeing without sacrificing their lifestyle. It’s for those seeking a science-based, elegant approach to fat loss, muscle building, and hormonal health.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Is this only fitness coaching? <span class="faq-icon">+</span></div>
+                    <div class="faq-answer">No. While intelligent resistance training is a core pillar, we equally emphasize nutritional biochemistry, hormonal regulation, sleep architecture, and stress management for a holistic, longevity-focused transformation.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Do you offer in-person experiences in Dubai? <span class="faq-icon">+</span></div>
+                    <div class="faq-answer">Yes, while our 1:1 mentorship is primarily a digital concierge service allowing for ultimate flexibility, we frequently host exclusive in-person training experiences and wellness immersions for our Dubai-based collective.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">I have a demanding schedule. Will this work for me? <span class="faq-icon">+</span></div>
+                    <div class="faq-answer">Absolutely. Our protocols are designed specifically for busy women. We don't demand hours in the gym. We focus on minimum effective dose strategies that yield maximum physiological return on investment.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">How do I apply? <span class="faq-icon">+</span></div>
+                    <div class="faq-answer">You can begin by filling out the confidential application form below. If we believe we are a perfect fit, our team will reach out to schedule a private discovery consultation.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="apply" class="cta-section">
+        <div class="container">
+            <span class="section-tag gsap-reveal">Begin</span>
+            <h2 class="gsap-reveal" style="font-size: 3rem; margin-bottom: 1rem;">Step into your highest physical state.</h2>
+            <p class="gsap-reveal" style="max-width: 500px; margin: 0 auto;">Applications for our 1:1 private mentorship and Dubai collective are strictly limited to ensure uncompromising quality of service.</p>
+
+            <div class="form-container gsap-reveal">
+                <form onsubmit="event.preventDefault(); alert('Thank you for applying. Our team will review your application and be in touch shortly.');">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control" placeholder="Jane Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-control" placeholder="jane@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Primary Goal</label>
+                        <select class="form-control" required style="appearance: none; background: transparent;">
+                            <option value="" disabled selected>Select your focus...</option>
+                            <option value="physique">Physique Transformation & Strength</option>
+                            <option value="hormones">Hormonal Balance & Energy</option>
+                            <option value="longevity">Longevity & Holistic Vitality</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary form-submit">Submit Application</button>
                 </form>
             </div>
-            
-            <div class="space-y-8 gsap-book-info flex flex-col justify-center">
-                <h3 class="font-serif text-3xl font-semibold text-white">Location</h3>
-                
-                <div class="bg-studio-dark relative h-64 rounded-2xl border-2 border-neon-pink/50 overflow-hidden flex items-center justify-center group hover:border-neon-pink transition-colors shadow-[0_0_15px_rgba(255,42,95,0.1)]">
-                    <div class="absolute inset-0 bg-neon-pink/5 group-hover:bg-neon-pink/10 transition-colors"></div>
-                    <div class="text-center text-gray-400 relative z-10">
-                        <svg class="w-12 h-12 mx-auto mb-3 text-neon-pink glow-text-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                        <p class="font-bold text-white mb-1">Studio Lounge Cafe</p>
-                        <p class="text-sm">Al Karama, Dubai, UAE</p>
-                        <p class="text-xs mt-2 text-neon-pink/70">Map Data Placeholder</p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-4 pt-4 border-t border-gray-800">
-                    <div>
-                        <p class="text-xs uppercase tracking-widest text-gray-500 mb-1">Hours</p>
-                        <p class="text-white font-medium">3:00 PM - 3:00 AM</p>
-                    </div>
-                    <div>
-                        <p class="text-xs uppercase tracking-widest text-gray-500 mb-1">Live DJ & Music</p>
-                        <p class="text-neon-blue font-medium glow-text-blue">Thu - Sat, 9:00 PM</p>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
-    <footer class="py-12 bg-studio-dark border-t border-neon-purple/20 text-center relative overflow-hidden">
-        <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[30rem] h-[10rem] bg-neon-pink/10 rounded-full blur-[80px] pointer-events-none"></div>
-        
-        <div class="relative z-10">
-            <p class="font-serif text-3xl font-bold text-white mb-2 tracking-tight">Studio<span class="text-neon-pink">.</span></p>
-            <p class="text-xs uppercase tracking-[0.3em] text-gray-500 mb-8">© 2026 Studio Lounge Cafe Dubai. The Night is Yours.</p>
-            
-            <div class="flex justify-center space-x-8 text-sm uppercase tracking-widest font-bold">
-                <a href="#" class="text-gray-400 hover:text-neon-pink transition-colors">Instagram</a>
-                <a href="#" class="text-gray-400 hover:text-neon-blue transition-colors">TikTok</a>
-                <a href="#" class="text-gray-400 hover:text-neon-purple transition-colors">Contact</a>
+    <footer>
+        <div class="container">
+            <div class="footer-logo">The Glow Method™</div>
+            <p style="margin-bottom: 2rem; color: rgba(250, 249, 246, 0.6); font-size: 0.9rem;">Premium Science-Led Wellness • Dubai, UAE</p>
+            <div class="footer-links">
+                <a href="#promise">Method</a>
+                <a href="#experience">Experience</a>
+                <a href="#results">Results</a>
+                <a href="#apply">Apply</a>
+                <a href="#">Instagram</a>
+            </div>
+            <div class="copyright">
+                &copy; 2026 The Glow Method™. All rights reserved. Not a medical entity.
             </div>
         </div>
     </footer>
 
     <script>
-        gsap.registerPlugin(ScrollTrigger);
+        document.addEventListener("DOMContentLoaded", (event) => {
+            // Register GSAP ScrollTrigger
+            gsap.registerPlugin(ScrollTrigger);
 
-        // Header Background Blur on Scroll
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('navbar');
-            if(window.scrollY > 50) {
-                header.classList.add('shadow-[0_4px_30px_rgba(0,0,0,0.5)]');
-                header.classList.replace('py-4', 'py-3');
-            } else {
-                header.classList.remove('shadow-[0_4px_30px_rgba(0,0,0,0.5)]');
-                header.classList.replace('py-3', 'py-4');
-            }
-        });
+            // Hero Animation
+            const heroTl = gsap.timeline();
+            heroTl.fromTo(".hero-elem", 
+                { y: 30, opacity: 0, autoAlpha: 0 }, 
+                { y: 0, opacity: 1, autoAlpha: 1, stagger: 0.15, duration: 1, ease: "power3.out" }
+            );
 
-        // Hero Load Animation
-        gsap.from(".gsap-hero-content", {
-            y: 80,
-            opacity: 0,
-            duration: 1.5,
-            ease: "power3.out",
-            delay: 0.2
-        });
+            // Floating Cards Animation
+            gsap.to(".fc-1", { y: 15, duration: 3, repeat: -1, yoyo: true, ease: "sine.inOut" });
+            gsap.to(".fc-2", { y: -20, duration: 4, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.5 });
+            gsap.to(".fc-3", { y: 10, duration: 3.5, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 1 });
+            gsap.to(".fc-4", { y: -15, duration: 4.5, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 1.5 });
 
-        // Vibe Section Animation
-        const vibeTl = gsap.timeline({
-            scrollTrigger: {
-                trigger: ".gsap-vibe-trigger",
-                start: "top 75%",
-            }
-        });
-        vibeTl.from(".gsap-vibe-text h2, .gsap-vibe-text p", { y: 40, opacity: 0, stagger: 0.2, duration: 1, ease: "power2.out" })
-              .from(".gsap-vibe-text .flex > div", { y: 20, opacity: 0, stagger: 0.1, duration: 0.6 }, "-=0.6")
-              .from(".gsap-vibe-img", { scale: 0.9, opacity: 0, duration: 1, ease: "power2.out" }, "-=0.8");
+            // Scroll Reveals
+            const revealElements = document.querySelectorAll(".gsap-reveal");
+            revealElements.forEach((el) => {
+                gsap.fromTo(el, 
+                    { y: 40, opacity: 0, autoAlpha: 0 },
+                    { 
+                        y: 0, 
+                        opacity: 1, 
+                        autoAlpha: 1,
+                        duration: 1, 
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: el,
+                            start: "top 85%",
+                            toggleActions: "play none none reverse"
+                        }
+                    }
+                );
+            });
 
-        // Menu Stagger Animation
-        gsap.to(".menu-item", {
-            y: 0,
-            opacity: 1,
-            stagger: 0.15,
-            duration: 0.8,
-            ease: "power2.out",
-            scrollTrigger: {
-                trigger: ".gsap-menu-trigger",
-                start: "top 65%",
-            }
-        });
+            // Navbar Glass Effect on Scroll
+            const nav = document.querySelector('nav');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    nav.style.background = 'rgba(255, 255, 255, 0.85)';
+                    nav.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.05)';
+                } else {
+                    nav.style.background = 'rgba(255, 255, 255, 0.7)';
+                    nav.style.boxShadow = 'none';
+                }
+            });
 
-        // Booking Section Entrance
-        gsap.from(".gsap-book-form", {
-            x: -50,
-            opacity: 0,
-            duration: 1,
-            ease: "power2.out",
-            scrollTrigger: {
-                trigger: "#booking",
-                start: "top 75%",
-            }
-        });
-        gsap.from(".gsap-book-info", {
-            x: 50,
-            opacity: 0,
-            duration: 1,
-            ease: "power2.out",
-            scrollTrigger: {
-                trigger: "#booking",
-                start: "top 75%",
-            }
+            // FAQ Accordion
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    // Close all others
+                    faqItems.forEach(faq => faq.classList.remove('active'));
+                    // Open clicked if it wasn't active
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
         });
     </script>
 </body>
